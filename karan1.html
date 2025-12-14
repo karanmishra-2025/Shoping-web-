@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Karan Mishra Bags • Premium Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary: #e91e63;
+  --primary-dark: #c2185b;
+  --dark: #121212;
+  --light: #f8f9fa;
+  --gray: #888;
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+body { font-family: 'Montserrat', sans-serif; background: #fafafa; color: var(--dark); line-height: 1.6; }
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+button { font-family: inherit; cursor: pointer; transition: 0.3s; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+/* HEADER */
+.header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; }
+.nav { max-width: 1200px; margin: auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { font-size: 24px; font-weight: 700; color: var(--dark); letter-spacing: -0.5px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.brand span { color: var(--primary); }
+
+.search-bar { flex: 1; max-width: 500px; position: relative; }
+.search-bar input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #ddd; background: #f4f4f4; transition: 0.3s; }
+.search-bar input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.1); }
+
+.cart-icon { position: relative; font-size: 24px; cursor: pointer; padding: 5px; }
+.cart-count { position: absolute; top: -5px; right: -8px; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 50%; border: 2px solid #fff; }
+
+/* HERO */
+.hero { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+.hero-banner { width: 100%; height: 350px; object-fit: cover; border-radius: 20px; box-shadow: var(--shadow); filter: brightness(0.9); }
+
+/* FILTERS */
+.filters { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.filter-btn { border: 1px solid #e0e0e0; background: #fff; padding: 10px 24px; border-radius: 30px; font-size: 15px; font-weight: 500; color: #555; }
+.filter-btn:hover, .filter-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); transform: translateY(-2px); }
+
+/* GRID */
+.container { max-width: 1200px; margin: 20px auto; padding: 0 20px; min-height: 60vh; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-title { font-size: 32px; margin-bottom: 5px; }
+.section-subtitle { color: var(--gray); font-size: 15px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+.card { background: #fff; border-radius: var(--radius); overflow: hidden; transition: 0.3s; border: 1px solid #f0f0f0; cursor: pointer; position: relative; }
+.card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+.card-img-wrap { overflow: hidden; height: 280px; background: #f9f9f9; position: relative; }
+.card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+.card:hover img { transform: scale(1.1); }
+.badge { position: absolute; top: 10px; left: 10px; background: #fff; color: var(--dark); padding: 4px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+.card-info { padding: 18px; }
+.card-cat { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); font-weight: 600; margin-bottom: 5px; }
+.card h4 { font-size: 16px; margin-bottom: 8px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
+.price { font-size: 17px; font-weight: 700; color: var(--dark); }
+.add-btn { width: 36px; height: 36px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border: none; font-size: 18px; color: var(--dark); }
+.add-btn:hover { background: var(--primary); color: #fff; }
+
+/* PRODUCT DETAIL VIEW */
+.detail-view { display: none; max-width: 1000px; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.4s; }
+.back-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--gray); margin-bottom: 20px; background: none; border: none; font-size: 16px; }
+.back-btn:hover { color: var(--primary); transform: translateX(-5px); }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+.detail-img img { width: 100%; border-radius: 20px; box-shadow: var(--shadow); }
+.detail-info { padding-top: 10px; }
+.detail-tag { background: #e3f2fd; color: #1976d2; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 15px; }
+.detail-info h1 { font-size: 38px; margin-bottom: 10px; line-height: 1.2; }
+.detail-price { font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+.detail-price del { font-size: 18px; color: #aaa; font-weight: 400; }
+.detail-desc { color: #666; margin-bottom: 30px; font-size: 16px; line-height: 1.7; }
+
+.action-buttons { display: flex; gap: 15px; }
+.btn-main { flex: 1; padding: 18px; border: none; border-radius: 50px; font-weight: 600; font-size: 16px; background: var(--dark); color: #fff; cursor: pointer; }
+.btn-main:hover { background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.btn-outline { flex: 1; padding: 18px; border: 2px solid #ddd; border-radius: 50px; font-weight: 600; font-size: 16px; background: transparent; color: var(--dark); cursor: pointer; }
+.btn-outline:hover { border-color: var(--dark); }
+
+/* FOOTER (NEW & IMPROVED) */
+footer { background: #121212; color: #bbb; padding: 70px 0 30px; margin-top: 80px; }
+.footer-wrap { max-width: 1200px; margin: auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+.footer-col h3 { color: #fff; font-size: 18px; margin-bottom: 20px; }
+.footer-col p { font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
+.footer-links a { display: block; color: #bbb; margin-bottom: 10px; font-size: 14px; }
+.footer-links a:hover { color: var(--primary); padding-left: 5px; }
+
+/* Newsletter in Footer */
+.newsletter-box { display: flex; margin-top: 15px; }
+.newsletter-box input { flex: 1; padding: 12px; border-radius: 5px 0 0 5px; border: none; background: #222; color: #fff; }
+.newsletter-box button { padding: 12px 20px; background: var(--primary); color: #fff; border: none; border-radius: 0 5px 5px 0; font-weight: 600; }
+
+.footer-bottom { border-top: 1px solid #222; margin-top: 50px; padding-top: 25px; text-align: center; font-size: 13px; color: #666; }
+.socials span { margin-right: 15px; font-size: 18px; cursor: pointer; }
+.socials span:hover { color: #fff; }
+
+/* CART DRAWER & TOAST */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: 0.3s; }
+.drawer { position: fixed; top: 0; right: -400px; width: 380px; height: 100%; background: #fff; z-index: 201; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+.drawer.open { right: 0; }
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+.drawer-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+.cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+.cart-item { display: flex; gap: 15px; margin-bottom: 20px; }
+.cart-item img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
+.drawer-footer { padding: 20px; border-top: 1px solid #eee; }
+.checkout-btn { width: 100%; padding: 15px; background: var(--dark); color: #fff; border: none; border-radius: 10px; font-weight: 600; margin-top: 10px; }
+
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #333; color: #fff; padding: 12px 24px; border-radius: 50px; font-size: 14px; transition: 0.4s; opacity: 0; z-index: 300; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+@media(max-width: 768px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .drawer { width: 100%; }
+  .search-bar { display: none; }
+  .footer-wrap { grid-template-columns: 1fr; gap: 30px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="nav">
+    <div class="brand" onclick="goHome()">KARAN<span>BAGS</span></div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for luxury, sling, shoulder..." onkeyup="handleSearch()">
+    </div>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛍️ <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </div>
+</div>
+
+<div id="homeView">
+  <div class="hero">
+    <img class="hero-banner" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" alt="Fashion Banner">
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all', this)">All Collection</button>
+    <button class="filter-btn" onclick="filterProducts('Sling', this)">Sling Bags</button>
+    <button class="filter-btn" onclick="filterProducts('Luxury', this)">Luxury</button>
+    <button class="filter-btn" onclick="filterProducts('Shoulder', this)">Shoulder Bags</button>
+  </div>
+
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Latest Arrivals</h2>
+      <p class="section-subtitle">Discover our premium range of hand-crafted bags.</p>
+    </div>
+    <div class="grid" id="productGrid"></div>
+    <div id="noResults" style="display:none; text-align:center; padding:40px; color:#777">No products found.</div>
+  </div>
+</div>
+
+<div id="productDetailView" class="detail-view">
+  <button class="back-btn" onclick="goBack()">← Back to Shop</button>
+  <div class="detail-grid" id="detailContent"></div>
+</div>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-col" style="flex: 1.5;">
+      <h3 class="brand" style="color:#fff; margin-bottom:15px; font-size:22px;">KARAN<span>BAGS</span></h3>
+      <p>India's most trusted brand for premium handbags. We believe in sustainable fashion without compromising on style. Handcrafted with love.</p>
+      <div class="socials">
+        <span>📸 Instagram</span>
+        <span>📘 Facebook</span>
+        <span>🐦 Twitter</span>
+      </div>
+    </div>
+    
+    <div class="footer-col">
+      <h3>Shop</h3>
+      <div class="footer-links">
+        <a href="#" onclick="filterProducts('Sling', document.querySelectorAll('.filter-btn')[1]); window.scrollTo(0,0)">Sling Bags</a>
+        <a href="#" onclick="filterProducts('Luxury', document.querySelectorAll('.filter-btn')[2]); window.scrollTo(0,0)">Luxury Collection</a>
+        <a href="#" onclick="filterProducts('Shoulder', document.querySelectorAll('.filter-btn')[3]); window.scrollTo(0,0)">Shoulder Bags</a>
+        <a href="#">New Arrivals</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h3>Support</h3>
+      <div class="footer-links">
+        <a href="#">Track Order</a>
+        <a href="#">Returns & Exchange</a>
+        <a href="#">Shipping Policy</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h3>Stay Updated</h3>
+      <p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+      <div class="newsletter-box">
+        <input type="email" placeholder="Your email address">
+        <button>JOIN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Karan Mishra Bags. All Rights Reserved.</p>
+    <p style="margin-top:5px; opacity: 0.6;">Secure Payment: UPI • Cards • NetBanking • COD</p>
+  </div>
+</footer>
+
+<div class="drawer-overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <span>My Cart</span>
+    <button onclick="toggleCart()" style="border:none; background:none; font-size:24px;">×</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-footer">
+    <div style="display:flex; justify-content:space-between; font-weight:700; font-size:18px; margin-bottom:10px;">
+      <span>Total</span><span id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="alert('Redirecting to Payment Gateway...')">Checkout Now</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Added to cart</div>
+
+<script>
+// EXPANDED DATA: 5 Products per Category (Total 15)
+const products = [
+  // SLING BAGS (5 Items)
+  { id: 1, name: 'Tan Leather Sling', category: 'Sling', price: 1499, oldPrice: 2499, img: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=800&q=80', desc: 'Classic tan faux leather sling with adjustable strap.' },
+  { id: 2, name: 'Chic White Chain', category: 'Sling', price: 1299, oldPrice: 1999, img: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80', desc: 'Elegant white sling with gold chain detailing.' },
+  { id: 3, name: 'Boho Pattern Sling', category: 'Sling', price: 999, oldPrice: 1599, img: 'https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?auto=format&fit=crop&w=800&q=80', desc: 'Colorful bohemian pattern, perfect for casual outings.' },
+  { id: 4, name: 'Black Quilted Mini', category: 'Sling', price: 1799, oldPrice: 2999, img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80', desc: 'Premium quilted texture with a compact design.' },
+  { id: 5, name: 'Pastel Pink Sling', category: 'Sling', price: 1199, oldPrice: 1800, img: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80', desc: 'Soft pastel pink shade, lightweight and trendy.' },
+
+  // LUXURY BAGS (5 Items)
+  { id: 6, name: 'Royal Blue Tote', category: 'Luxury', price: 4999, oldPrice: 8500, img: 'https://plus.unsplash.com/premium_photo-1664392147011-2a720f214e01?auto=format&fit=crop&w=800&q=80', desc: 'Signature luxury tote in royal blue with gold accents.' },
+  { id: 7, name: 'Emerald Green Handbag', category: 'Luxury', price: 5499, oldPrice: 9000, img: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80', desc: 'Textured emerald green finish for a sophisticated look.' },
+  { id: 8, name: 'Beige Designer Satchel', category: 'Luxury', price: 4299, oldPrice: 6000, img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?auto=format&fit=crop&w=800&q=80', desc: 'Minimalist beige design, imported leather quality.' },
+  { id: 9, name: 'Golden Evening Clutch', category: 'Luxury', price: 3999, oldPrice: 5500, img: 'https://images.unsplash.com/photo-1566152664713-35f991444d37?auto=format&fit=crop&w=800&q=80', desc: 'Perfect for weddings and parties. Shimmers in light.' },
+  { id: 10, name: 'Croc-Print Leather', category: 'Luxury', price: 6999, oldPrice: 12000, img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80', desc: 'High-end crocodile print texture. The ultimate status symbol.' },
+
+  // SHOULDER BAGS (5 Items)
+  { id: 11, name: 'Classic Maroon Shoulder', category: 'Shoulder', price: 2499, oldPrice: 3500, img: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=800&q=80', desc: 'Spacious maroon bag, ideal for office and travel.' },
+  { id: 12, name: 'Black Everyday Tote', category: 'Shoulder', price: 1899, oldPrice: 2500, img: 'https://images.unsplash.com/photo-1591561954555-607968c989ab?auto=format&fit=crop&w=800&q=80', desc: 'Your daily companion. Fits a laptop and essentials.' },
+  { id: 13, name: 'Canvas Shopper', category: 'Shoulder', price: 899, oldPrice: 1200, img: 'https://images.unsplash.com/photo-1614179924047-e1ab49a0a0cf?auto=format&fit=crop&w=800&q=80', desc: 'Eco-friendly canvas material with modern prints.' },
+  { id: 14, name: 'Vintage Brown Hobo', category: 'Shoulder', price: 2799, oldPrice: 3800, img: 'https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?auto=format&fit=crop&w=800&q=80', desc: 'Vintage style hobo bag with soft leather finish.' },
+  { id: 15, name: 'Grey Office Satchel', category: 'Shoulder', price: 2299, oldPrice: 3200, img: 'https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?auto=format&fit=crop&w=800&q=80', desc: 'Professional grey satchel with multiple compartments.' }
+];
+
+let cart = [];
+
+// DOM ELEMENTS
+const grid = document.getElementById('productGrid');
+const homeView = document.getElementById('homeView');
+const detailView = document.getElementById('productDetailView');
+const detailContent = document.getElementById('detailContent');
+
+// RENDER FUNCTION
+function renderProducts(list) {
+  grid.innerHTML = '';
+  if(list.length === 0) {
+    document.getElementById('noResults').style.display = 'block';
+    return;
+  }
+  document.getElementById('noResults').style.display = 'none';
+  
+  list.forEach(p => {
+    grid.innerHTML += `
+      <div class="card" onclick="openProduct(${p.id})">
+        <div class="card-img-wrap">
+          <img src="${p.img}" alt="${p.name}">
+          <div class="badge">${p.category}</div>
+        </div>
+        <div class="card-info">
+          <div class="card-cat">Karan Mishra Bags</div>
+          <h4>${p.name}</h4>
+          <div class="card-footer">
+            <div class="price">₹${p.price}</div>
+            <button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id})">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// INIT
+renderProducts(products);
+
+// LOGIC
+function openProduct(id) {
+  const p = products.find(x => x.id === id);
+  detailContent.innerHTML = `
+    <div class="detail-img"><img src="${p.img}"></div>
+    <div class="detail-info">
+      <span class="detail-tag">In Stock</span>
+      <div style="color:#888; margin-bottom:5px;">Category: ${p.category}</div>
+      <h1>${p.name}</h1>
+      <div class="detail-price">₹${p.price} <del>₹${p.oldPrice}</del></div>
+      <p class="detail-desc">${p.desc} Made with high-quality materials ensuring durability and style. Perfect for modern fashion needs.</p>
+      <div class="action-buttons">
+        <button class="btn-outline" onclick="addToCart(${p.id})">Add to Cart</button>
+        <button class="btn-main" onclick="buyNow(${p.id})">Buy Now</button>
+      </div>
+      <div style="margin-top:30px; font-size:13px; color:#666;">
+        <p>✅ Authenticity Guaranteed</p>
+        <p>🔄 7 Days Return Policy</p>
+      </div>
+    </div>
+  `;
+  homeView.style.display = 'none';
+  detailView.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  detailView.style.display = 'none';
+  homeView.style.display = 'block';
+}
+
+function goHome() {
+  goBack();
+  filterProducts('all', document.querySelectorAll('.filter-btn')[0]);
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  cart.push(p);
+  updateCart();
+  showToast();
+}
+
+function buyNow(id) {
+  addToCart(id);
+  toggleCart();
+}
+
+function updateCart() {
+  document.getElementById('cartCount').innerText = cart.length;
+  const box = document.getElementById('cartItems');
+  box.innerHTML = '';
+  let total = 0;
+  if(cart.length===0) box.innerHTML = '<div style="text-align:center; color:#999; margin-top:40px">Cart is empty</div>';
+  cart.forEach((i, idx) => {
+    total += i.price;
+    box.innerHTML += `
+      <div class="cart-item">
+        <img src="${i.img}">
+        <div style="flex:1">
+          <h5 style="margin-bottom:5px">${i.name}</h5>
+          <div style="font-size:14px; color:#555">₹${i.price}</div>
+          <div style="color:red; font-size:12px; cursor:pointer; margin-top:5px" onclick="cart.splice(${idx},1); updateCart()">Remove</div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('cartTotal').innerText = '₹' + total;
+}
+
+function toggleCart() {
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const list = cat === 'all' ? products : products.filter(p => p.category === cat);
+  renderProducts(list);
+}
+
+function handleSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  renderProducts(products.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)));
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>
